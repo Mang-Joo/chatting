@@ -22,7 +22,7 @@ class ChatRoomService(
         }
         .let {
             val chatUser = chatUserService.find(userId)
-            val chatRoom = chatRepository.addChatUser(chatId, chatUser)
+            val chatRoom = chatRepository.addChatUser(chatId, chatUser.join(it))
             JoinRoomResponse.of(chatRoom, chatUser.name)
         }
 
