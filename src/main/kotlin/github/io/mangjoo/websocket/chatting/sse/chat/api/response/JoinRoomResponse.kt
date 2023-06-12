@@ -12,7 +12,7 @@ data class JoinRoomResponse(
     companion object {
         fun of(chatRoom: ChatRoom, userName: String) = JoinRoomResponse(
             chatRoom.id,
-            chatRoom.name,
+            chatRoom.roomName,
             userName,
             "Welcome to $chatRoom.name, $userName!"
         )
