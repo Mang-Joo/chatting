@@ -6,8 +6,10 @@ import java.util.*
 data class ChatUser(
     val id: UUID = UUID.randomUUID(),
     val name: String,
-    val sseEmitter: SseEmitter
+    val sseEmitter: SseEmitter? = null
 ) {
-
-
+    init {
+        require(name.isNotBlank()) { "name must not be blank" }
+    }
+    fun join(sseEmitter: SseEmitter) = ChatUser(id, name, sseEmitter)
 }

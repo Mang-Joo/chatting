@@ -1,10 +1,11 @@
 package github.io.mangjoo.websocket.chatting.sse.user.domain
 
 data class ChatUsers(
-    val emitters: List<ChatUser> = mutableListOf(),
+    val chatUsers: List<ChatUser> = mutableListOf(),
 ) {
     constructor(chatUser: ChatUser) : this(listOf(chatUser))
 
-    fun add(chatUser: ChatUser) = emitters.plus(chatUser)
-    fun remove(chatUser: ChatUser) = emitters.minus(chatUser)
+    fun add(chatUser: ChatUser) = ChatUsers(chatUsers.plusElement(chatUser))
+
+    val size get() = chatUsers.size
 }
