@@ -8,12 +8,12 @@ import java.util.*
 @Service
 class ChatUserService(
     private val chatUserRepository: ChatUserRepository,
-) : SaveChatUserUseCase, FindUserByEmitterUseCase, FindUserByIdUseCase {
+) : CreateChatUserUseCase, FindUserByEmitterUseCase, FindUserByIdUseCase {
     override fun find(emitter: SseEmitter): ChatUser = chatUserRepository
         .findByEmitter(emitter)
 
 
-    override fun save(chatUser: ChatUser): ChatUser = chatUserRepository
+    override fun create(chatUser: ChatUser): ChatUser = chatUserRepository
         .save(chatUser)
 
     override fun find(id: UUID): ChatUser = chatUserRepository
