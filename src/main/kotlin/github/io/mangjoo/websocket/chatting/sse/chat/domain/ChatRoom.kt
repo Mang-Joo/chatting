@@ -6,8 +6,14 @@ import java.util.*
 
 data class ChatRoom(
     val id: UUID = UUID.randomUUID(),
-    val name: String,
-    val chatUsers: ChatUsers
+    val roomName: String,
+    val chatUsers: ChatUsers = ChatUsers()
 ) {
-    fun add(chatUser: ChatUser) = chatUsers.add(chatUser)
+    fun add(chatUser: ChatUser) = ChatRoom(
+        id,
+        roomName,
+        chatUsers.add(chatUser)
+    )
+
+    val numberOfPeople get() = chatUsers.size
 }
