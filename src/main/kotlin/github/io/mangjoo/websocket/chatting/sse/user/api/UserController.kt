@@ -2,7 +2,7 @@ package github.io.mangjoo.websocket.chatting.sse.user.api
 
 import github.io.mangjoo.websocket.chatting.sse.user.api.request.CreateUserRequest
 import github.io.mangjoo.websocket.chatting.sse.user.api.response.CreateUserResponse
-import github.io.mangjoo.websocket.chatting.sse.user.application.ChatUserUseCaseService
+import github.io.mangjoo.websocket.chatting.sse.user.application.UserService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api/v1/users")
 class UserController(
-    private val chatUserService: ChatUserUseCaseService
+    private val chatUserService: UserService
 ) {
 
     @PostMapping

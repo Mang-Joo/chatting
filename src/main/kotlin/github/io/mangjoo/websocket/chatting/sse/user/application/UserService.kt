@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class ChatUserUseCaseService(
+class UserService(
     private val userRepository: UserRepository,
 ) : CreateChatUserUseCase, FindUserUseCase {
 
