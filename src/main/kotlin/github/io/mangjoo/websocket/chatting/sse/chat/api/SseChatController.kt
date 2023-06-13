@@ -1,8 +1,11 @@
 package github.io.mangjoo.websocket.chatting.sse.chat.api
 
+import github.io.mangjoo.websocket.chatting.sse.chat.api.request.CreateRoomRequest
 import github.io.mangjoo.websocket.chatting.sse.chat.api.request.SendMessageRequest
+import github.io.mangjoo.websocket.chatting.sse.chat.api.response.CreateRoomResponse
 import github.io.mangjoo.websocket.chatting.sse.chat.api.response.JoinRoomResponse
 import github.io.mangjoo.websocket.chatting.sse.chat.api.response.SendMessageResponse
+import github.io.mangjoo.websocket.chatting.sse.chat.application.service.ChatMessageService
 import github.io.mangjoo.websocket.chatting.sse.chat.application.service.ChatRoomService
 import org.springframework.http.MediaType.*
 import org.springframework.http.ResponseEntity
@@ -15,6 +18,7 @@ const val TIME_OUT_SECOND = 6000L
 @RequestMapping("/sse")
 class SseChatController(
     private val chatRoomService: ChatRoomService,
+    private val chatMessageService: ChatMessageService
 ) {
     @GetMapping("/{chat-id}/{user-id}", produces = [TEXT_EVENT_STREAM_VALUE])
     fun connection(
@@ -24,12 +28,20 @@ class SseChatController(
         .join(chatId, userId)
         .let { ResponseEntity.ok(it) }
 
-    @PostMapping("/{chat-id}/{user-id}")
+    @PostMapping("/create-room")
+    fun createRoom(
+        @RequestBody createRoomRequest: CreateRoomRequest
+    ): ResponseEntity<CreateRoomResponse> = chatRoomService
+        .create(createRoomRequest.roomName, createRoomRequest.userIdToUUID)
+        .let { ResponseEntity.ok(it) }
+
+    @PostMapping("/send-message/{chat-id}/{user-id}")
     fun sendMessage(
         @PathVariable(value = "chat-id") chatId: UUID,
         @PathVariable(value = "user-id") userId: UUID,
         @RequestBody sendMessageRequest: SendMessageRequest,
-    ): ResponseEntity<SendMessageResponse> = chatRoomService
+    ): ResponseEntity<SendMessageResponse> = chatMessageService
         .sendMessage(chatId, userId, sendMessageRequest.message)
         .let { ResponseEntity.ok(it) }
+
 }
