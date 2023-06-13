@@ -1,6 +1,6 @@
 package github.io.mangjoo.websocket.chatting.sse.user.api.response
 
-import github.io.mangjoo.websocket.chatting.sse.user.domain.ChatUser
+import github.io.mangjoo.websocket.chatting.sse.user.domain.User
 import java.util.*
 
 data class CreateUserResponse(
@@ -8,6 +8,6 @@ data class CreateUserResponse(
     val name: String
 ) {
     companion object {
-        fun of(chatUser: ChatUser) = CreateUserResponse(chatUser.id, chatUser.name)
+        fun of(user: User) = CreateUserResponse(user.id, user.name)
     }
 }

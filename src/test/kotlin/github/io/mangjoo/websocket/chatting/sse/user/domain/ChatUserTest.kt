@@ -1,5 +1,6 @@
 package github.io.mangjoo.websocket.chatting.sse.user.domain
 
+import github.io.mangjoo.websocket.chatting.sse.chat.application.ChatUser
 import org.assertj.core.api.Assertions.*
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName

@@ -1,6 +1,6 @@
 package github.io.mangjoo.websocket.chatting.sse.chat.api.response
 
-import github.io.mangjoo.websocket.chatting.sse.chat.domain.ChatRoom
+import github.io.mangjoo.websocket.chatting.sse.chat.domain.room.ChatRoom
 import java.util.*
 
 data class JoinRoomResponse(

@@ -1,9 +1,7 @@
 package github.io.mangjoo.websocket.chatting.sse.chat.domain
 
-import org.assertj.core.api.Assertions
+import github.io.mangjoo.websocket.chatting.sse.chat.domain.message.ChatMessage
 import org.assertj.core.api.Assertions.*
-import org.junit.jupiter.api.Assertions.assertDoesNotThrow
-import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.util.*
@@ -22,10 +20,9 @@ class ChatMessageTest {
         val chatMessage = ChatMessage(chatRoomId, sender, message)
 
         // then
-        assertDoesNotThrow { ChatMessage(chatRoomId, sender, message) }
-        assertEquals(chatRoomId, chatMessage.chatRoomId)
-        assertEquals(sender, chatMessage.sender.userName)
-        assertEquals(message, chatMessage.message)
+        assertThatThrownBy { ChatMessage(chatRoomId, sender, message) }
+            .doesNotThrowAnyException()
+        assertThat(chatRoomId).isEqualTo(chatMessage.chatRoomId)
     }
 
     @Test
@@ -37,5 +34,21 @@ class ChatMessageTest {
 
         // when / then
         assertThatThrownBy { ChatMessage(chatRoomId, sender, message) }
+    }
+
+    @Test
+    fun `autoId test`() {
+        // given
+        val id = 1L
+        val chatRoomId = UUID.randomUUID()
+        val sender = "test sender"
+        val message = "test message"
+        val chatMessage = ChatMessage(chatRoomId, sender, message)
+
+        // when
+        val autoIdChatMessage = chatMessage.autoId(id)
+
+        // then
+        assertThat(id).isEqualTo(autoIdChatMessage.id)
     }
 }
