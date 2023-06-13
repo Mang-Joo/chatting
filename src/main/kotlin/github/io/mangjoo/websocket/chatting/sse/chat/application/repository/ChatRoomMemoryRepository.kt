@@ -2,7 +2,6 @@ package github.io.mangjoo.websocket.chatting.sse.chat.application.repository
 
 import github.io.mangjoo.websocket.chatting.sse.chat.domain.room.ChatRoom
 import org.springframework.stereotype.Repository
-import java.util.*
 
 var CHAT_MESSAGE_ID = 1L
 
@@ -18,5 +17,5 @@ class ChatRoomMemoryRepository(
             .also { chatRooms.add(it) }
     }
 
-    fun findByChatId(chatId: UUID): ChatRoom = chatRooms.first { it.id == chatId }
+    fun findByChatId(chatId: java.util.UUID): ChatRoom = chatRooms.first { it.id == chatId }
 }
