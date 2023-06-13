@@ -5,29 +5,26 @@ import java.util.*
 data class ChatRoom(
     val id: UUID = UUID.randomUUID(),
     val roomName: String,
-    val chatUsers: List<UUID> = mutableListOf(),
-    val messages: List<UUID> = mutableListOf(),
+    val users: List<UUID> = mutableListOf(),
 ) {
+    companion object {
+        fun createRoom(roomName: String, userId: UUID) = ChatRoom(
+            roomName = roomName,
+            users = listOf(userId)
+        )
+    }
+
     fun add(userId: UUID) = ChatRoom(
         id,
         roomName,
-        chatUsers.plusElement(userId)
+        users.plusElement(userId)
     )
 
     fun outChatUser(userId: UUID) = ChatRoom(
         id,
         roomName,
-        chatUsers.minusElement(userId)
+        users.minusElement(userId)
     )
 
-    fun sendMessage(messageId: UUID) = ChatRoom(
-        id,
-        roomName,
-        chatUsers,
-        messages.plusElement(messageId)
-    )
-
-    val messageCount get() = messages.size
-
-    val numberOfPeople get() = chatUsers.size
+    val numberOfPeople get() = users.size
 }

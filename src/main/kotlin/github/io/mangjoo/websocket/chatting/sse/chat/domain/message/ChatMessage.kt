@@ -16,7 +16,7 @@ data class ChatMessage(
         require(message.isNotBlank()) { "message must not be blank" }
     }
 
-    constructor(chatRoomId: UUID, sender: String, message: String) : this(
+    constructor(chatRoomId: UUID, sender: UUID, message: String) : this(
         chatRoomId = chatRoomId,
         sender = Sender(sender),
         message = message

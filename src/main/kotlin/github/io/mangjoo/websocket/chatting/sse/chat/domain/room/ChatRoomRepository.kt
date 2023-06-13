@@ -2,27 +2,26 @@ package github.io.mangjoo.websocket.chatting.sse.chat.domain.room
 
 import github.io.mangjoo.websocket.chatting.sse.chat.application.repository.ChatRoomMemoryRepository
 import org.springframework.stereotype.Repository
-import java.util.*
 
 interface ChatRoomRepository {
-    fun addChatUser(chatId: UUID, userId: UUID): ChatRoom
-    fun findByChatId(chatId: UUID): ChatRoom
-    fun remove(chatId: UUID, chatUser: UUID): ChatRoom
+    fun addChatUser(chatRoomId: java.util.UUID, userId: java.util.UUID): ChatRoom
+    fun findByChatRoomId(chatRoomId: java.util.UUID): ChatRoom
+    fun remove(chatRoomId: java.util.UUID, chatUser: java.util.UUID): ChatRoom
     fun save(chatRoom: ChatRoom): ChatRoom
 
     @Repository
     class ChatRoomRepositoryImpl(
         private val memoryRepository: ChatRoomMemoryRepository,
     ) : ChatRoomRepository {
-        override fun addChatUser(chatId: UUID, userId: UUID) = memoryRepository
-            .findByChatId(chatId)
+        override fun addChatUser(chatRoomId: java.util.UUID, userId: java.util.UUID) = memoryRepository
+            .findByChatId(chatRoomId)
             .apply { add(userId) }
             .let { memoryRepository.save(it) }
 
-        override fun findByChatId(chatId: UUID): ChatRoom = memoryRepository
-            .findByChatId(chatId)
+        override fun findByChatRoomId(chatRoomId: java.util.UUID): ChatRoom = memoryRepository
+            .findByChatId(chatRoomId)
 
-        override fun remove(chatId: UUID, chatUser: UUID): ChatRoom {
+        override fun remove(chatRoomId: java.util.UUID, chatUser: java.util.UUID): ChatRoom {
             TODO("Not yet implemented")
         }
 
