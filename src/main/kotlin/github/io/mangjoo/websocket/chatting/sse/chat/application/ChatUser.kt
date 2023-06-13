@@ -15,6 +15,7 @@ data class ChatUser(
 
     fun sendChatUser(message: ChatMessage) = sseEmitter
         ?.send(event(message))
+        ?.let { sseEmitter.complete() }
         ?.let { ChatUser(userId, sseEmitter) } ?: throw IllegalStateException("Not connected sse")
 
     private fun event(message: ChatMessage): MutableSet<ResponseBodyEmitter.DataWithMediaType> = SseEmitter

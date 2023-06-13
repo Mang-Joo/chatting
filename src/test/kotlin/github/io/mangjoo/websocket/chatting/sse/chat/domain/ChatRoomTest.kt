@@ -1,12 +1,10 @@
 package github.io.mangjoo.websocket.chatting.sse.chat.domain
 
-import github.io.mangjoo.websocket.chatting.sse.chat.application.ChatUser
-import github.io.mangjoo.websocket.chatting.sse.chat.domain.message.ChatMessage
 import github.io.mangjoo.websocket.chatting.sse.chat.domain.room.ChatRoom
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
+import java.util.*
 
 @DisplayName("ChatRoom Domain Test")
 class ChatRoomTest {
@@ -15,10 +13,10 @@ class ChatRoomTest {
     fun `add user to chat room`() {
         // given
         val chatRoom = ChatRoom(roomName = "test room")
-        val chatUser = ChatUser(name = "test user", sseEmitter = SseEmitter())
+        val userId = UUID.randomUUID()
 
         // when
-        val addUserChatRoom = chatRoom.add(chatUser)
+        val addUserChatRoom = chatRoom.add(userId)
 
         // then
         assertThat(1).isEqualTo(addUserChatRoom.numberOfPeople)
@@ -28,27 +26,13 @@ class ChatRoomTest {
     fun `remove user to chat room`() {
         // given
         val chatRoom = ChatRoom(roomName = "test room")
-        val chatUser = ChatUser(name = "test user", sseEmitter = SseEmitter())
-        val addUserChatRoom = chatRoom.add(chatUser)
+        val userId = UUID.randomUUID()
+        val addUserChatRoom = chatRoom.add(userId)
 
         // when
-        val removeUserChatRoom = addUserChatRoom.outChatUser(chatUser)
+        val removeUserChatRoom = addUserChatRoom.outChatUser(userId)
 
         // then
         assertThat(0).isEqualTo(removeUserChatRoom.numberOfPeople)
-    }
-
-    @Test
-    fun `send chat message test`() {
-        // given
-        val chatRoom = ChatRoom(roomName = "test room")
-        val chatUser = ChatUser(name = "test user", sseEmitter = SseEmitter())
-        val message = ChatMessage(chatRoomId = chatRoom.id, message = "test message", sender = chatUser.name)
-
-        // when
-        val sendMessageChatRoom = chatRoom.sendMessage(message)
-
-        // then
-        assertThat(1).isEqualTo(sendMessageChatRoom.messageCount)
     }
 }
