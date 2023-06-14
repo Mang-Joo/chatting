@@ -15,7 +15,7 @@ import java.util.*
 const val TIME_OUT_SECOND = 6000L
 
 @RestController
-@RequestMapping("/sse")
+@RequestMapping("/chat")
 class SseChatController(
     private val chatRoomService: ChatRoomService,
     private val chatMessageService: ChatMessageService

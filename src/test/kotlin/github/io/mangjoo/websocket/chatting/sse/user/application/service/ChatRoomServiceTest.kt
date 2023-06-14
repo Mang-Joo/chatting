@@ -1,24 +1,21 @@
 package github.io.mangjoo.websocket.chatting.sse.user.application.service
 
+import github.io.mangjoo.websocket.chatting.sse.chat.domain.room.ChatRoom
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter
+import java.util.*
 
 
 class ChatRoomServiceTest {
 
-    private val list: MutableList<SseEmitter> = mutableListOf()
     @Test
     fun `join chat room`() {
-        val sseEmitter = SseEmitter(60000L)
-        val sseEmitter2 = SseEmitter(6000L)
+        val chatRoom = ChatRoom(roomName = "test")
+        val userId = UUID.randomUUID()
 
-        list.add(sseEmitter)
-        list.add(sseEmitter2)
-        val let = sseEmitter.let { list.indexOf(sseEmitter) }
+        val addedUserRoom = chatRoom.add(userId)
 
-        println(list.size)
-        println("let = ${let}")
-
+        assertThat(addedUserRoom.users).contains(userId)
     }
 
 }
