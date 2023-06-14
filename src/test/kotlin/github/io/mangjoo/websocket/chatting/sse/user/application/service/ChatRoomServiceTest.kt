@@ -9,7 +9,7 @@ class ChatRoomServiceTest {
     private val list: MutableList<SseEmitter> = mutableListOf()
     @Test
     fun `join chat room`() {
-        val sseEmitter = SseEmitter(6000L)
+        val sseEmitter = SseEmitter(60000L)
         val sseEmitter2 = SseEmitter(6000L)
 
         list.add(sseEmitter)
